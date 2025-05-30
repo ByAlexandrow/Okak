@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,7 @@
         /* Header */
         header {
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -166,7 +167,7 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
 
@@ -185,9 +186,20 @@
             font-size: 1.5rem;
         }
 
-        .feature-icon.blue { background: #dbeafe; color: #2563eb; }
-        .feature-icon.green { background: #dcfce7; color: #16a34a; }
-        .feature-icon.purple { background: #f3e8ff; color: #9333ea; }
+        .feature-icon.blue {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .feature-icon.green {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .feature-icon.purple {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
 
         .feature-card h3 {
             font-size: 1.25rem;
@@ -200,7 +212,7 @@
             background: white;
             padding: 3rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin: 4rem 0;
         }
 
@@ -223,10 +235,21 @@
             margin-bottom: 0.5rem;
         }
 
-        .stat-number.blue { color: #2563eb; }
-        .stat-number.green { color: #16a34a; }
-        .stat-number.purple { color: #9333ea; }
-        .stat-number.orange { color: #ea580c; }
+        .stat-number.blue {
+            color: #2563eb;
+        }
+
+        .stat-number.green {
+            color: #16a34a;
+        }
+
+        .stat-number.purple {
+            color: #9333ea;
+        }
+
+        .stat-number.orange {
+            color: #ea580c;
+        }
 
         /* Form Styles */
         .form-grid {
@@ -240,7 +263,7 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
@@ -296,7 +319,7 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
         }
 
@@ -327,13 +350,13 @@
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
         }
 
         .team-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .team-header {
@@ -433,21 +456,21 @@
             .form-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .hero h1 {
                 font-size: 2rem;
             }
-            
+
             .nav {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            
+
             .header-content {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .checkbox-grid {
                 grid-template-columns: 1fr;
             }
@@ -458,6 +481,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -480,7 +504,8 @@
         <section id="home" class="section active">
             <div class="hero">
                 <h1>Профессиональная разработка ПО</h1>
-                <p>Получите точную оценку сроков и стоимости вашего проекта. Мы поможем выбрать оптимальный стек технологий и команду разработчиков.</p>
+                <p>Получите точную оценку сроков и стоимости вашего проекта. Мы поможем выбрать оптимальный стек
+                    технологий и команду разработчиков.</p>
                 <button class="btn" onclick="showSection('request')">
                     Подать заявку →
                 </button>
@@ -530,21 +555,24 @@
         <!-- Request Section -->
         <section id="request" class="section">
             <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">Подача заявки на разработку</h2>
-            
+
             <div class="form-grid">
                 <div class="form-card">
                     <h3 style="margin-bottom: 1rem;">Информация о проекте</h3>
-                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Заполните детали вашего проекта для получения точной оценки</p>
-                    
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Заполните детали вашего проекта для получения
+                        точной оценки</p>
+
                     <form id="projectForm">
                         <div class="form-group">
                             <label for="projectName">Название проекта</label>
-                            <input type="text" id="projectName" class="form-control" placeholder="Введите название проекта">
+                            <input type="text" id="projectName" class="form-control"
+                                placeholder="Введите название проекта">
                         </div>
 
                         <div class="form-group">
                             <label for="description">Описание проекта</label>
-                            <textarea id="description" class="form-control" placeholder="Опишите ваш проект, его цели и основные функции"></textarea>
+                            <textarea id="description" class="form-control"
+                                placeholder="Опишите ваш проект, его цели и основные функции"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -667,7 +695,7 @@
         <!-- Teams Section -->
         <section id="teams" class="section">
             <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">Наши команды разработки</h2>
-            
+
             <div class="teams-grid">
                 <div class="team-card" data-team="1">
                     <div class="team-header">
@@ -680,14 +708,15 @@
                             <span>4.9</span>
                         </div>
                     </div>
-                    
+
                     <div class="team-stats">
                         <span>👥 5 разработчиков</span>
                         <span>47 проектов</span>
                     </div>
-                    
+
                     <div style="margin-bottom: 0.5rem;">
-                        <div style="display: flex; justify-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                        <div
+                            style="display: flex; justify-content:space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
                             <span>Загруженность</span>
                             <span>75%</span>
                         </div>
@@ -695,7 +724,7 @@
                             <div class="progress-fill" style="width: 75%;"></div>
                         </div>
                     </div>
-                    
+
                     <div style="margin-bottom: 1rem;">
                         <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">Технологии:</p>
                         <div class="tech-tags">
@@ -704,11 +733,11 @@
                             <span class="tech-tag">PostgreSQL</span>
                         </div>
                     </div>
-                    
+
                     <div class="team-availability">
                         Доступна с 15.02
                     </div>
-                    
+
                     <button class="btn btn-outline btn-full" onclick="selectTeam(1, this)">
                         Выбрать команду
                     </button>
@@ -725,14 +754,15 @@
                             <span>4.8</span>
                         </div>
                     </div>
-                    
+
                     <div class="team-stats">
                         <span>👥 4 разработчика</span>
                         <span>32 проекта</span>
                     </div>
-                    
+
                     <div style="margin-bottom: 0.5rem;">
-                        <div style="display: flex; justify-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                        <div
+                            style="display: flex; justify-content:space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
                             <span>Загруженность</span>
                             <span>45%</span>
                         </div>
@@ -740,7 +770,7 @@
                             <div class="progress-fill" style="width: 45%;"></div>
                         </div>
                     </div>
-                    
+
                     <div style="margin-bottom: 1rem;">
                         <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">Технологии:</p>
                         <div class="tech-tags">
@@ -749,11 +779,11 @@
                             <span class="tech-tag">Firebase</span>
                         </div>
                     </div>
-                    
+
                     <div class="team-availability">
                         Доступна сейчас
                     </div>
-                    
+
                     <button class="btn btn-outline btn-full" onclick="selectTeam(2, this)">
                         Выбрать команду
                     </button>
@@ -770,14 +800,15 @@
                             <span>4.7</span>
                         </div>
                     </div>
-                    
+
                     <div class="team-stats">
                         <span>👥 7 разработчиков</span>
                         <span>28 проектов</span>
                     </div>
-                    
+
                     <div style="margin-bottom: 0.5rem;">
-                        <div style="display: flex; justify-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                        <div
+                            style="display: flex; justify-content:space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
                             <span>Загруженность</span>
                             <span>90%</span>
                         </div>
@@ -785,7 +816,7 @@
                             <div class="progress-fill" style="width: 90%;"></div>
                         </div>
                     </div>
-                    
+
                     <div style="margin-bottom: 1rem;">
                         <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">Технологии:</p>
                         <div class="tech-tags">
@@ -794,11 +825,11 @@
                             <span class="tech-tag">Oracle</span>
                         </div>
                     </div>
-                    
+
                     <div class="team-availability">
                         Доступна с 01.03
                     </div>
-                    
+
                     <button class="btn btn-outline btn-full" onclick="selectTeam(3, this)">
                         Выбрать команду
                     </button>
@@ -819,10 +850,10 @@
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
-            
+
             // Show selected section
             document.getElementById(sectionName).classList.add('active');
-            
+
             // Update navigation buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -862,7 +893,7 @@
         function calculateEstimate() {
             const projectType = document.getElementById('projectType').value;
             const complexity = document.getElementById('complexity').value;
-            
+
             if (!projectType || !complexity) {
                 alert('Пожалуйста, выберите тип проекта и сложность');
                 return;
@@ -953,25 +984,25 @@
         }
 
         // Form validation and submission
-        document.getElementById('projectForm').addEventListener('submit', function(e) {
+        document.getElementById('projectForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const projectName = document.getElementById('projectName').value;
             const description = document.getElementById('description').value;
-            
+
             if (!projectName || !description) {
                 alert('Пожалуйста, заполните название и описание проекта');
                 return;
             }
-            
+
             alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
         });
 
         // Smooth scrolling for internal links
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Add some interactive animations
             const cards = document.querySelectorAll('.feature-card, .team-card');
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -990,4 +1021,5 @@
         });
     </script>
 </body>
+
 </html>
