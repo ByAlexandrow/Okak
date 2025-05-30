@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okak - Сервис разработки ПО</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .nav-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .nav-btn.active:hover {
+            background: #1d4ed8;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Home Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+
+        .btn-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-icon.blue { background: #dbeafe; color: #2563eb; }
+        .feature-icon.green { background: #dcfce7; color: #16a34a; }
+        .feature-icon.purple { background: #f3e8ff; color: #9333ea; }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Stats */
+        .stats {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 4rem 0;
+        }
+
+        .stats h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number.blue { color: #2563eb; }
+        .stat-number.green { color: #16a34a; }
+        .stat-number.purple { color: #9333ea; }
+        .stat-number.orange { color: #ea580c; }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .form-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Checkbox Grid */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Estimate Display */
+        .estimate-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .estimate-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .estimate-value {
+            font-weight: bold;
+        }
+
+        .estimate-value.cost {
+            color: #16a34a;
+        }
+
+        /* Teams Grid */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .team-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .star {
+            color: #fbbf24;
+        }
+
+        .team-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            border: 1px solid #d1d5db;
+        }
+
+        .team-availability {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-selected {
+            background: #16a34a;
+        }
+
+        .btn-selected:hover {
+            background: #15803d;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            color: #166534;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .success-message h4 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">💻</div>
+                    <span>Okak</span>
+                </div>
+                <nav>
+                    <button class="nav-btn active" onclick="showSection('home')">Главная</button>
+                    <button class="nav-btn" onclick="showSection('request')">Подать заявку</button>
+                    <button class="nav-btn" onclick="showSection('teams')">Команды</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Профессиональная разработка ПО</h1>
+                <p>Получите точную оценку сроков и стоимости вашего проекта. Мы поможем выбрать оптимальный стек технологий и команду разработчиков.</p>
+                <button class="btn" onclick="showSection('request')">
+                    Подать заявку →
+                </button>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon blue">⚡</div>
+                    <h3>Быстрая оценка</h3>
+                    <p>Получите предварительную оценку сроков и стоимости за несколько минут</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">🎯</div>
+                    <h3>Точный подбор</h3>
+                    <p>Подберем оптимальный стек технологий и команду под ваш проект</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple">🛡️</div>
+                    <h3>Гарантия качества</h3>
+                    <p>Все команды проверены, имеют высокий рейтинг и опыт работы</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <h3>Наши достижения</h3>
+                <div class="stats-grid">
+                    <div>
+                        <div class="stat-number blue">150+</div>
+                        <div>Проектов завершено</div>
+                    </div>
+                    <div>
+                        <div class="stat-number green">98%</div>
+                        <div>Довольных клиентов</div>
+                    </div>
+                    <div>
+                        <div class="stat-number purple">15</div>
+                        <div>Команд разработки</div>
+                    </div>
+                    <div>
+                        <div class="stat-number orange">24/7</div>
+                        <div>Поддержка</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Request Section -->
+        <section id="request" class="section">
+            <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">Подача заявки на разработку</h2>
+            
+            <div class="form-grid">
+                <div class="form-card">
+                    <h3 style="margin-bottom: 1rem;">Информация о проекте</h3>
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Заполните детали вашего проекта для получения точной оценки</p>
+                    
+                    <form id="projectForm">
+                        <div class="form-group">
+                            <label for="projectName">Название проекта</label>
+                            <input type="text" id="projectName" class="form-control" placeholder="Введите название проекта">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Описание проекта</label>
+                            <textarea id="description" class="form-control" placeholder="Опишите ваш проект, его цели и основные функции"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectType">Тип проекта</label>
+                            <select id="projectType" class="form-control">
+                                <option value="">Выберите тип проекта</option>
+                                <option value="web">Веб-приложение</option>
+                                <option value="mobile">Мобильное приложение</option>
+                                <option value="desktop">Десктопное приложение</option>
+                                <option value="api">API/Backend</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="crm">CRM система</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="complexity">Сложность проекта</label>
+                            <select id="complexity" class="form-control">
+                                <option value="">Выберите сложность</option>
+                                <option value="simple">Простой (~4 недели, от 150,000 ₽)</option>
+                                <option value="medium">Средний (~8 недель, от 350,000 ₽)</option>
+                                <option value="complex">Сложный (~16 недель, от 750,000 ₽)</option>
+                                <option value="enterprise">Корпоративный (~24 недели, от 1,200,000 ₽)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Дополнительные функции</label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="auth" value="auth">
+                                    <label for="auth">Авторизация и регистрация</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="admin" value="admin">
+                                    <label for="admin">Админ панель</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="payment" value="payment">
+                                    <label for="payment">Система платежей</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="notifications" value="notifications">
+                                    <label for="notifications">Уведомления</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="analytics" value="analytics">
+                                    <label for="analytics">Аналитика</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="api" value="api">
+                                    <label for="api">REST API</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="mobile" value="mobile">
+                                    <label for="mobile">Мобильная версия</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="chat" value="chat">
+                                    <label for="chat">Чат/Мессенджер</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-full" onclick="calculateEstimate()">
+                            Рассчитать оценку
+                        </button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="estimate-card">
+                        <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            🕒 Предварительная оценка
+                        </h3>
+                        <div id="estimateResult">
+                            <p style="color: #6b7280;">
+                                Заполните форму и нажмите "Рассчитать оценку" для получения предварительной стоимости
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="estimate-card">
+                        <h3 style="margin-bottom: 1rem;">Рекомендуемые технологии</h3>
+                        <div id="techRecommendations">
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="font-size: 0.875rem; color: #374151; margin-bottom: 0.5rem;">Frontend</h4>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Vue.js</span>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="font-size: 0.875rem; color: #374151; margin-bottom: 0.5rem;">Backend</h4>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">Python</span>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="font-size: 0.875rem; color: #374151; margin-bottom: 0.5rem;">Database</h4>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <span class="tech-tag">PostgreSQL</span>
+                                    <span class="tech-tag">MongoDB</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 0.875rem; color: #374151; margin-bottom: 0.5rem;">Cloud</h4>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <span class="tech-tag">AWS</span>
+                                    <span class="tech-tag">Docker</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teams Section -->
+        <section id="teams" class="section">
+            <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">Наши команды разработки</h2>
+            
+            <div class="teams-grid">
+                <div class="team-card" data-team="1">
+                    <div class="team-header">
+                        <div>
+                            <h3>Alpha Team</h3>
+                            <p style="color: #6b7280;">Веб-разработка</p>
+                        </div>
+                        <div class="team-rating">
+                            <span class="star">★</span>
+                            <span>4.9</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-stats">
+                        <span>👥 5 разработчиков</span>
+                        <span>47 проектов</span>
+                    </div>
+                    
+                    <div style="margin-bottom: 0.5rem;">
+                        <div style="display: flex; justify-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            <span>Загруженность</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">Технологии:</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-availability">
+                        Доступна с 15.02
+                    </div>
+                    
+                    <button class="btn btn-outline btn-full" onclick="selectTeam(1, this)">
+                        Выбрать команду
+                    </button>
+                </div>
+
+                <div class="team-card" data-team="2">
+                    <div class="team-header">
+                        <div>
+                            <h3>Beta Squad</h3>
+                            <p style="color: #6b7280;">Мобильная разработка</p>
+                        </div>
+                        <div class="team-rating">
+                            <span class="star">★</span>
+                            <span>4.8</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-stats">
+                        <span>👥 4 разработчика</span>
+                        <span>32 проекта</span>
+                    </div>
+                    
+                    <div style="margin-bottom: 0.5rem;">
+                        <div style="display: flex; justify-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            <span>Загруженность</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">Технологии:</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-availability">
+                        Доступна сейчас
+                    </div>
+                    
+                    <button class="btn btn-outline btn-full" onclick="selectTeam(2, this)">
+                        Выбрать команду
+                    </button>
+                </div>
+
+                <div class="team-card" data-team="3">
+                    <div class="team-header">
+                        <div>
+                            <h3>Gamma Force</h3>
+                            <p style="color: #6b7280;">Enterprise решения</p>
+                        </div>
+                        <div class="team-rating">
+                            <span class="star">★</span>
+                            <span>4.7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-stats">
+                        <span>👥 7 разработчиков</span>
+                        <span>28 проектов</span>
+                    </div>
+                    
+                    <div style="margin-bottom: 0.5rem;">
+                        <div style="display: flex; justify-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            <span>Загруженность</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">Технологии:</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Spring</span>
+                            <span class="tech-tag">Oracle</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-availability">
+                        Доступна с 01.03
+                    </div>
+                    
+                    <button class="btn btn-outline btn-full" onclick="selectTeam(3, this)">
+                        Выбрать команду
+                    </button>
+                </div>
+            </div>
+
+            <div id="teamSelectedMessage" class="success-message hidden">
+                <h4>Команда выбрана!</h4>
+                <p>Мы свяжемся с вами в течение 24 часов для обсуждения деталей проекта.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Project data
+        const projectTypes = {
+            'web': { label: 'Веб-приложение', multiplier: 1 },
+            'mobile': { label: 'Мобильное приложение', multiplier: 1.2 },
+            'desktop': { label: 'Десктопное приложение', multiplier: 1.1 },
+            'api': { label: 'API/Backend', multiplier: 0.8 },
+            'ecommerce': { label: 'E-commerce', multiplier: 1.3 },
+            'crm': { label: 'CRM система', multiplier: 1.4 }
+        };
+
+        const complexityLevels = {
+            'simple': { label: 'Простой', weeks: 4, cost: 150000 },
+            'medium': { label: 'Средний', weeks: 8, cost: 350000 },
+            'complex': { label: 'Сложный', weeks: 16, cost: 750000 },
+            'enterprise': { label: 'Корпоративный', weeks: 24, cost: 1200000 }
+        };
+
+        const features = {
+            'auth': { name: 'Авторизация и регистрация', hours: 40 },
+            'admin': { name: 'Админ панель', hours: 60 },
+            'payment': { name: 'Система платежей', hours: 80 },
+            'notifications': { name: 'Уведомления', hours: 30 },
+            'analytics': { name: 'Аналитика', hours: 50 },
+            'api': { name: 'REST API', hours: 70 },
+            'mobile': { name: 'Мобильная версия', hours: 120 },
+            'chat': { name: 'Чат/Мессенджер', hours: 90 }
+        };
+
+        // Calculate estimate
+        function calculateEstimate() {
+            const projectType = document.getElementById('projectType').value;
+            const complexity = document.getElementById('complexity').value;
+            
+            if (!projectType || !complexity) {
+                alert('Пожалуйста, выберите тип проекта и сложность');
+                return;
+            }
+
+            const projectData = projectTypes[projectType];
+            const complexityData = complexityLevels[complexity];
+
+            let baseWeeks = complexityData.weeks;
+            let baseCost = complexityData.cost;
+
+            // Apply project type multiplier
+            baseWeeks *= projectData.multiplier;
+            baseCost *= projectData.multiplier;
+
+            // Add features
+            const selectedFeatures = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+
+            let additionalHours = 0;
+            selectedFeatures.forEach(featureId => {
+                if (features[featureId]) {
+                    additionalHours += features[featureId].hours;
+                }
+            });
+
+            const additionalWeeks = additionalHours / 40; // 40 hours per week
+            const additionalCost = additionalHours * 2500; // 2500 rub per hour
+
+            const totalWeeks = Math.ceil(baseWeeks + additionalWeeks);
+            const totalCost = Math.ceil(baseCost + additionalCost);
+
+            // Display results
+            const estimateResult = document.getElementById('estimateResult');
+            estimateResult.innerHTML = `
+                <div class="estimate-row">
+                    <span style="color: #6b7280;">Время разработки:</span>
+                    <span class="estimate-value">${totalWeeks} недель</span>
+                </div>
+                <div class="estimate-row">
+                    <span style="color: #6b7280;">Стоимость:</span>
+                    <span class="estimate-value cost">${totalCost.toLocaleString()} ₽</span>
+                </div>
+                <div style="padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                    <p style="font-size: 0.875rem; color: #6b7280;">
+                        * Окончательная стоимость может отличаться после детального анализа требований
+                    </p>
+                </div>
+            `;
+        }
+
+        // Team selection
+        let selectedTeamId = null;
+
+        function selectTeam(teamId, buttonElement) {
+            // Reset all team buttons
+            document.querySelectorAll('.team-card button').forEach(btn => {
+                btn.classList.remove('btn-selected');
+                btn.classList.add('btn-outline');
+                btn.innerHTML = 'Выбрать команду';
+            });
+
+            // Update selected team button
+            buttonElement.classList.remove('btn-outline');
+            buttonElement.classList.add('btn-selected');
+            buttonElement.innerHTML = '✓ Выбрана';
+
+            selectedTeamId = teamId;
+
+            // Show success message
+            const successMessage = document.getElementById('teamSelectedMessage');
+            successMessage.classList.remove('hidden');
+
+            // Get team name
+            const teamNames = {
+                1: 'Alpha Team',
+                2: 'Beta Squad',
+                3: 'Gamma Force'
+            };
+
+            successMessage.innerHTML = `
+                <h4>Команда выбрана!</h4>
+                <p>Вы выбрали команду ${teamNames[teamId]}. Мы свяжемся с вами в течение 24 часов для обсуждения деталей проекта.</p>
+            `;
+
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Form validation and submission
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const projectName = document.getElementById('projectName').value;
+            const description = document.getElementById('description').value;
+            
+            if (!projectName || !description) {
+                alert('Пожалуйста, заполните название и описание проекта');
+                return;
+            }
+            
+            alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+        });
+
+        // Smooth scrolling for internal links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive animations
+            const cards = document.querySelectorAll('.feature-card, .team-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
