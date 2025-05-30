@@ -1,24 +1,50 @@
 from rest_framework import serializers
 
 from api.tasks.models import Task, TaskStatus, WorkDirection
+from api.teams.models import Team
+from api.teams.serializers import TeamSerializer
 
 
-class TaskStatus(serializers.ModelSerializer):
+class TaskStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskStatus
-        fields = ['id']
+        fields = ['id', 'title', 'color_tag', 'is_published']
         read_only_field = ['id']
 
 
-class WorkDirection(serializers.ModelSerializer):
+class WorkDirectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkDirection
-        fields = ['id']
+        fields = ['id', 'title', 'is_published']
         read_only_field = ['id']
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    direction = WorkDirectionSerializer(read_only=True)
+    direction_id = serializers.PrimaryKeyRelatedField(
+        queryset=WorkDirection.objects.all(), source='direction', write_only=True
+    )
+    status = TaskStatusSerializer(read_only=True)
+    status_id = serializers.PrimaryKeyRelatedField(
+        queryset=TaskStatus.objects.all(), source='status', write_only=True
+    )
+    team = TeamSerializer(read_only=True)
+    team_id = serializers.PrimaryKeyRelatedField(
+        queryset=Team.objects.all(), source='team', write_only=True
+    )
+
     class Meta:
         model = Task
-        fields = ['id']
-        read_only_field = ['id', 'created_at']
+        fields = [
+            'id', 'title', 'description', 'direction', 'direction_id',
+            'deadline', 'status', 'status_id', 'team', 'team_id', 'created_at'
+        ]
+        read_only_field = ['id']
+    
+    def validate_deadline(self, value):
+        from django.utils import timezone
+        if value < timezone.localdate():
+            raise serializers.ValidationError(
+                'Дедлайн не может быть в прошлом!'
+            )
+        return value

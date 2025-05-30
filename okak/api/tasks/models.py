@@ -95,11 +95,6 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Команда',
     )
-    # programmer = models.ManyToOneRel(
-    #     User,
-    #     verbose_name='Исполнители',
-    #     blank=True,
-    # )
     created_at = models.DateField(
         auto_now_add=True,
         verbose_name='Дата создания'
