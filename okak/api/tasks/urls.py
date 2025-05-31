@@ -6,9 +6,9 @@ from .views import TaskViewSet, TaskStatusViewSet, WorkDirectionViewSet
 
 
 router = DefaultRouter()
-router.register(r'tasks', TaskViewSet)
-router.register(r'task-statuses', TaskStatusViewSet)
-router.register(r'work-directions', WorkDirectionViewSet)
+router.register(r'tasks', TaskViewSet, basename='tasks')
+router.register(r'task-statuses', TaskStatusViewSet, basename='task-statuses')
+router.register(r'work-directions', WorkDirectionViewSet, basename='work-directions')
 
 urlpatterns = [
     path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

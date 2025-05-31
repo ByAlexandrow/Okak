@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'api.teams',
 ]
 
-AUTH_USER_MODEL = 'api.teams.Worker'
+AUTH_USER_MODEL = 'teams.Worker'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

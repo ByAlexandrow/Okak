@@ -112,7 +112,7 @@ class Task(models.Model):
     
     class Meta:
         indexes = [
-            models.Index(fields=['title']),
+            models.Index(fields=['title', 'direction', 'deadline', 'status']),
         ]
         ordering = ['-created_at']
         verbose_name = 'Задача'
