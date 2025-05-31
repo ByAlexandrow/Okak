@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser
 
 
 class Team(models.Model):
@@ -9,6 +9,12 @@ class Team(models.Model):
         blank=False,
         verbose_name='Направление команды',
     )
+    # description = models.CharField(
+    #     max_length=150,
+    #     null=False,
+    #     blank=False,
+    #     verbose_name='Описание',
+    # )
     is_published = models.BooleanField(
         default=False,
         verbose_name='Опубликовать',
@@ -36,18 +42,6 @@ class Worker(AbstractUser):
         help_text='Перечислите здесь стек технологий',
         verbose_name='Стек технологий',
     )
-    # groups = models.ManyToManyField(
-    #     Group,
-    #     blank=True,
-    #     related_name='worker_set',
-    #     verbose_name='Группы',
-    # )
-    # user_permissions = models.ManyToManyField(
-    #     Permission,
-    #     blank=True,
-    #     related_name='worker_permissions',
-    #     verbose_name='Разрешения',
-    # )
 
     def __str__(self):
         return self.get_full_name() or self.username
