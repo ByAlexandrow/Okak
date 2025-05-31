@@ -41,6 +41,19 @@ class TaskSerializer(serializers.ModelSerializer):
         ]
         read_only_field = ['id']
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            user = request.user
+            if user.team.title.lower() != 'Менеджер':
+                for field_name in self.fields:
+                    if field_name != 'status':
+                        self.fields[field_name].read_only = True
+        else:
+            for field in self.fields.values():
+                field.read_only = True
+    
     def validate_deadline(self, value):
         from django.utils import timezone
         if value < timezone.localdate():

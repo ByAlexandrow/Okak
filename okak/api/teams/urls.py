@@ -5,8 +5,8 @@ from .views import TeamViewSet, WorkerViewSet
 
 
 router = DefaultRouter()
-router.register(r'teams', TeamViewSet, basename='team')
-router.register(r'workers', WorkerViewSet, basename='workers')
+router.register(r'teams', TeamViewSet)
+router.register(r'workers', WorkerViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
