@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from api.tasks.models import Task, TaskStatus, WorkDirection
@@ -27,3 +29,17 @@ class TaskViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context['request'] = self.request
         return context
+    
+    def create(self, request, *args, **kwargs):
+        if request.user.team.title.lower() != 'Менеджер':
+            return Response({
+                'detail': 'Создавать задачи может только менеджер'
+            }, status=status.HTTP_403_FORBIDDEN)
+        return super().create(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        if request.user.team.title.lower() != 'Менеджер':
+            return Response({
+                'detail': 'Удалять задачи может только менеджер.'
+            }, status=status.HTTP_403_FORBIDDEN)
+        return super().destroy(request, *args, **kwargs)
